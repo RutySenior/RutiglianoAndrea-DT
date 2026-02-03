@@ -15,17 +15,14 @@ def get_deliveries():
 @app.route('/deliveries', methods=['POST'])
 def add_delivery():
     data = request.json
-    
-    # Validazione base
-    required_fields = ['tracking_code', 'recipient', 'address', 'time_slot']
-    if not all(field in data for field in required_fields):
-        return jsonify({"error": "Dati mancanti"}), 400
+    print("Dati ricevuti da Angular:", data) # <--- AGGIUNGI QUESTO
     
     success = db.insert_delivery(data)
     if success:
-        return jsonify({"message": "Consegna creata"}), 201
+        return jsonify({"message": "OK"}), 201
     else:
-        return jsonify({"error": "Errore durante il salvataggio o tracking duplicato"}), 500
+        # Se fallisce, mandiamo un errore più chiaro
+        return jsonify({"error": "Errore interno al DB"}), 500
 
 if __name__ == '__main__':
     # Inizializza la tabella all'avvio se necessario
