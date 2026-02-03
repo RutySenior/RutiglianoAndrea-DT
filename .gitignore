@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+backend/venv/
+backend/.env
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
+
+# Sitema
+.DS_Store
