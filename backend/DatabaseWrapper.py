@@ -61,6 +61,43 @@ class DatabaseWrapper:
         finally:
             conn.close()
 
+    def get_all_deliveries(self):
+        """Recupera tutte le consegne dal database."""
+        conn = self.connect()
+        if not conn: return []
+        try:
+            with conn.cursor() as cursor:
+                cursor.execute("SELECT * FROM deliveries")
+                return cursor.fetchall()
+        finally:
+            conn.close()
+
+    def insert_delivery(self, data):
+        """Inserisce una nuova consegna. Torna True se successo, False altrimenti."""
+        conn = self.connect()
+        if not conn: return False
+        query = """
+        INSERT INTO deliveries (tracking_code, recipient, address, time_slot, status, priority)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        """
+        try:
+            with conn.cursor() as cursor:
+                cursor.execute(query, (
+                    data['tracking_code'],
+                    data['recipient'],
+                    data['address'],
+                    data['time_slot'],
+                    data.get('status', 'READY'),
+                    data.get('priority', 'LOW')
+                ))
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Errore inserimento: {e}")
+            return False
+        finally:
+            conn.close()
+
 # Blocco di test rapido
 if __name__ == "__main__":
     db = DatabaseWrapper()
