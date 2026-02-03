@@ -98,6 +98,22 @@ class DatabaseWrapper:
         finally:
             conn.close()
 
+    def update_delivery_status(self, delivery_id, new_status):
+        """Aggiorna lo stato di una consegna specifica."""
+        conn = self.connect()
+        if not conn: return False
+        query = "UPDATE deliveries SET status = %s WHERE id = %s"
+        try:
+            with conn.cursor() as cursor:
+                cursor.execute(query, (new_status, delivery_id))
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Errore aggiornamento stato: {e}")
+            return False
+        finally:
+            conn.close()
+
 # Blocco di test rapido
 if __name__ == "__main__":
     db = DatabaseWrapper()

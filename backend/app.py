@@ -23,6 +23,20 @@ def add_delivery():
     else:
         # Se fallisce, mandiamo un errore più chiaro
         return jsonify({"error": "Errore interno al DB"}), 500
+    
+@app.route('/deliveries/<int:delivery_id>/status', methods=['PUT'])
+def update_status(delivery_id):
+    data = request.json
+    new_status = data.get('status')
+    
+    if not new_status:
+        return jsonify({"error": "Stato mancante"}), 400
+        
+    success = db.update_delivery_status(delivery_id, new_status)
+    if success:
+        return jsonify({"message": "Stato aggiornato"}), 200
+    else:
+        return jsonify({"error": "Errore aggiornamento"}), 500
 
 if __name__ == '__main__':
     # Inizializza la tabella all'avvio se necessario
