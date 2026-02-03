@@ -43,6 +43,13 @@
         <div class="status-indicator">
           <span class="dot"></span>
           <span class="status-label">{{ d.status }}</span>
+          <!-- Dentro il ciclo *ngFor, nella sezione footer della card -->
+<div class="status-actions">
+  <button (click)="changeStatus(d.id, 'READY')" class="btn-sm">Ready</button>
+  <button (click)="changeStatus(d.id, 'OUT_FOR_DELIVERY')" class="btn-sm">Out</button>
+  <button (click)="changeStatus(d.id, 'DELIVERED')" class="btn-sm">Done</button>
+  <button (click)="changeStatus(d.id, 'FAILED')" class="btn-sm btn-danger">Fail</button>
+</div>
         </div>
       </div>
 

@@ -25,4 +25,16 @@ export class DashboardComponent implements OnInit {
       this.deliveries = data;
     });
   }
+
+  // Aggiungi questo metodo nella classe DashboardComponent
+changeStatus(id: number | undefined, newStatus: string): void {
+  if (id === undefined) return;
+
+  this.deliveryService.updateStatus(id, newStatus).subscribe({
+    next: () => {
+      this.loadDeliveries(); // Ricarica la lista per aggiornare i colori dei bordi
+    },
+    error: (err) => console.error('Errore cambio stato', err)
+  });
+}
 }
