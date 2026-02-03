@@ -1,14 +1,57 @@
-<div class="dashboard-container">
-  <h1>Delivery Dashboard</h1>
+<div class="dashboard-wrapper">
+  
+  <!-- SEZIONE FORM: Inserimento nuova consegna (COMMIT 5) -->
+  <section class="form-area">
+    <!-- L'evento (deliveryCreated) richiama loadDeliveries() nel .ts per aggiornare la lista -->
+    <app-delivery-form (deliveryCreated)="loadDeliveries()"></app-delivery-form>
+  </section>
+
+  <hr class="separator">
+
+  <!-- SEZIONE DASHBOARD: Visualizzazione Card -->
+  <header>
+    <h1>Delivery Tracker Dashboard</h1>
+    <p>Monitoraggio in tempo reale delle attività dei corrieri</p>
+  </header>
+
   <div class="card-grid">
+    <!-- Ciclo sulle consegne recuperate dal backend -->
     <div *ngFor="let d of deliveries" 
          class="delivery-card" 
          [ngClass]="d.status.toLowerCase()">
-      <h3>{{ d.tracking_code }}</h3>
-      <p><strong>Destinatario:</strong> {{ d.recipient }}</p>
-      <p><strong>Indirizzo:</strong> {{ d.address }}</p>
-      <p><strong>Fascia:</strong> {{ d.time_slot }}</p>
-      <span class="status-label">{{ d.status }}</span>
+
+      <!-- Intestazione Card: Tracking e Priorità -->
+      <div class="card-header">
+        <span class="tracking-code">ID: {{ d.tracking_code }}</span>
+        
+        <!-- Badge Priorità (COMMIT 5: HIGH evidente) -->
+        <span class="priority-badge" 
+              [class.badge-high]="d.priority === 'HIGH'">
+          {{ d.priority }}
+        </span>
+      </div>
+
+      <!-- Corpo Card: Informazioni Destinatario -->
+      <div class="card-body">
+        <h2 class="recipient-name">{{ d.recipient }}</h2>
+        <p class="info"><strong>Indirizzo:</strong> {{ d.address }}</p>
+        <p class="info"><strong>Fascia Oraria:</strong> {{ d.time_slot }}</p>
+      </div>
+
+      <!-- Footer Card: Stato attuale -->
+      <div class="card-footer">
+        <div class="status-indicator">
+          <span class="dot"></span>
+          <span class="status-label">{{ d.status }}</span>
+        </div>
+      </div>
+
     </div>
   </div>
+
+  <!-- Messaggio se la lista è vuota -->
+  <div *ngIf="deliveries.length === 0" class="empty-state">
+    Nessuna consegna trovata nel sistema.
+  </div>
+
 </div>

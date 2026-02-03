@@ -7,11 +7,15 @@ import { Delivery } from '../models/delivery.model';
   providedIn: 'root'
 })
 export class DeliveryService {
-  private apiUrl = 'http://localhost:5000/deliveries';
+  private apiUrl = 'https://cuddly-guide-wrv6pjp7w7rp3gqx6-5000.app.github.dev/deliveries';
 
   constructor(private http: HttpClient) { }
 
   getDeliveries(): Observable<Delivery[]> {
     return this.http.get<Delivery[]>(this.apiUrl);
+  }
+
+  createDelivery(delivery: Delivery): Observable<any> {
+    return this.http.post(this.apiUrl, delivery);
   }
 }

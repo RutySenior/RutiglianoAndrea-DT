@@ -1,0 +1,17 @@
+<div class="form-container">
+  <h3>Nuova Consegna</h3>
+  <form (ngSubmit)="onSubmit()">
+    <input [(ngModel)]="newDelivery.tracking_code" name="tracking" placeholder="Tracking Code" required>
+    <input [(ngModel)]="newDelivery.recipient" name="recipient" placeholder="Destinatario" required>
+    <input [(ngModel)]="newDelivery.address" name="address" placeholder="Indirizzo" required>
+    <input [(ngModel)]="newDelivery.time_slot" name="time_slot" placeholder="Fascia Oraria (es. 10-12)" required>
+    
+    <select [(ngModel)]="newDelivery.priority" name="priority">
+      <option value="LOW">LOW</option>
+      <option value="MEDIUM">MEDIUM</option>
+      <option value="HIGH">HIGH</option>
+    </select>
+    
+    <button type="submit">Crea Consegna</button>
+  </form>
+</div>

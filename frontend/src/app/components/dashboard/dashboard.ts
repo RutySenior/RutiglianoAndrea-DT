@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DeliveryService } from '../../services/delivery';
 import { Delivery } from '../../models/delivery.model';
+import { CommonModule } from '@angular/common';
+import { DeliveryFormComponent } from '../delivery-form/delivery-form';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
+  imports: [CommonModule, DeliveryFormComponent],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']
 })

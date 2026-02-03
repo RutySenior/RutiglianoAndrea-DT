@@ -25,3 +25,19 @@
   font-weight: bold;
   font-size: 0.8em;
 }
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75em;
+  background-color: #eee;
+  color: #333;
+}
+
+/* Badge evidente per priorità HIGH */
+.badge-high {
+  background-color: #ff4444;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+}
