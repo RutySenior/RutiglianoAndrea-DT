@@ -1,0 +1,14 @@
+<div class="dashboard-container">
+  <h1>Delivery Dashboard</h1>
+  <div class="card-grid">
+    <div *ngFor="let d of deliveries" 
+         class="delivery-card" 
+         [ngClass]="d.status.toLowerCase()">
+      <h3>{{ d.tracking_code }}</h3>
+      <p><strong>Destinatario:</strong> {{ d.recipient }}</p>
+      <p><strong>Indirizzo:</strong> {{ d.address }}</p>
+      <p><strong>Fascia:</strong> {{ d.time_slot }}</p>
+      <span class="status-label">{{ d.status }}</span>
+    </div>
+  </div>
+</div>
